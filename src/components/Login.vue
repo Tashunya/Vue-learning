@@ -94,11 +94,35 @@ export default {
       await this[this.mode] ()
     },
     async login () {
-
+     this.$state.user = await this.$fetch('login', {
+       method: 'POST',
+       body: JSON.stringify({
+         username: this.username,
+         password: this.password,
+       }),
+     })
+     this.$router.push({ name: 'home'})
     },
     async signup () {
-
+      await this.$fetch('signup', {
+        method: 'POST',
+        body: JSON.stringify({
+          username: this.username,
+          password: this.password,
+          email: this.email,
+        }),
+      })
+      this.mode = 'login'
     },
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+// The >>> combinator allows us to target elements inside the components used in the template, while still scoping the rest of the CSS selector. In our example, the generated CSS will look as follows:
+.form {
+  >>> .content {
+    max-width: 400px;
+  }
+}
+</style>
