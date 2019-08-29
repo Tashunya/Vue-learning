@@ -1,0 +1,61 @@
+<template>
+<form @submit.prevent="submit">
+  <!-- On the <form> element, we set up an event listener on the 'submit'event, which prevents the default behavior of the browser (reloading the page) with the prevent modifier. -->
+  <section class="content">
+    <h2>{{ title }}</h2>
+    <!--  Main content-->
+    <slot />
+    <div class="actions">
+      <slot name="actions"></slot>
+    </div>
+
+    <div class="error" v-if="error">
+      {{ error }}
+    </div>
+  </section>
+  <transition name="fade">
+    <!-- Expanding over the form -->
+    <Loading v-if="busy" class="overlay" />
+  </transition>
+</form>
+</template>
+
+<script>
+export default {
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    operation: {
+      type: Function,
+      required: true,
+    },
+    valid: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  data () {
+    return {
+      error: null,
+      busy: false,
+    }
+  },
+
+  methods: {
+    async submit () {
+      if (this.valid && !this.busy) {
+        this.error = null
+        this.busy = true
+        try {
+          await this.operation()
+        } catch (e) {
+          this.error = e.message
+        }
+        this.busy = false
+      }
+    },
+  },
+}
+</script>
