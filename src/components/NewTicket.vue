@@ -45,17 +45,20 @@ export default {
       'description',
     ]),
   ],
+
   data () {
     return {
       title: "",
       description: "",
     }
   },
+
   computed: {
     valid () {
       return !!this.title && !!this.description
     },
   },
+  
   methods: {
     async operation () {
       const result = await this.$fetch('tickets/new', {

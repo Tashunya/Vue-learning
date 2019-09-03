@@ -10,7 +10,10 @@
     </header>
     <!-- Menu -->
     <NavMenu />
-    <router-view /> <!-- a special component provided by the vue-
+    <transition name="fade" mode="out-in">
+      <router-view />
+    </transition>
+    <!-- a special component provided by the vue-
 router plugin that will render the component of the current matching route. It is
 not a real component since it doesn't have its own template, and it will not appear
 in the DOM-->
