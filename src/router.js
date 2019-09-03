@@ -5,6 +5,7 @@ import FAQ from './components/FAQ.vue'
 import Login from './components/Login.vue'
 import TicketsLayout from './components/TicketsLayout.vue'
 import Tickets from './components/Tickets.vue'
+import Ticket from './components/Ticket.vue'
 import NewTicket from './components/NewTicket.vue'
 import state from './state'
 
@@ -22,6 +23,7 @@ const routes = [
   { path: '/tickets', component: TicketsLayout, meta: { private: true }, children: [
     { path: '', name: 'tickets', component: Tickets },
     { path: 'new', name: 'new-ticket', component: NewTicket },
+    { path: ':id', name: 'ticket', component: Ticket, props: true },
   ] },
 ]
 
