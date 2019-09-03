@@ -13,9 +13,18 @@ Vue.use(VueFetch, {
 
 Vue.use(VueState, state)
 
-new Vue({
-  el: '#app',
-  data: state,
-  router,
-  render: h => h(AppLayout),
-})
+async function main() {
+  try {
+    state.user = await $fetch('user')
+  } catch (e) {
+    console.warn(e)
+  }
+  new Vue({
+    el: '#app',
+    data: state,
+    router,
+    render: h => h(AppLayout),
+  })
+}
+
+main()
